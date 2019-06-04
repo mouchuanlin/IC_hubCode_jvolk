@@ -1,0 +1,45 @@
+
+# 1 "data.c"
+
+# 13
+void send_data(uint8_t eventType)
+{
+uint8_t numberRetries = ee_read(Retry_SMS);
+
+
+
+start_modem();
+while (!configure_socket_ok())
+start_modem();
+if (numberRetries > 0)
+{
+while (!transmit_over_socket_ok() && numberRetries-- > 0)
+{
+ledPattern = SEND_ERR;
+
+
+wait_network();
+
+}
+if (numberRetries != 0)
+{
+close_socket();
+}
+}
+else
+if (!transmit_over_socket_ok())
+{
+ledPattern = SEND_ERR;
+
+
+}
+
+}
+
+
+
+bool transmit_over_socket_ok()
+{
+
+# 53
+}
